@@ -61,5 +61,15 @@ We chose to use Agile as our development methodology. Agile will help keep every
 >Mention any third-party services or APIs you plan to integrate.
 
 
-+++ STILL IN PROGRESS, WILL PULL REQUEST ON FRIDAY, WILL CHECK FOR TYPOS GRAMMAR AND REFORMAT(MARK UP EFFECTS) PARAGRAPHS ON FRIDAY
+## Group Member Participation
+| Group Member Name    | What is your contribution? | Discussion Notes |
+| -------- | ------- | ------- |
+| David | Created base project and organized content, worked on Initial Thoughts, Development Methodoligy, High-Level Design / Architecture quesitons | |
+| Ruk | worked on Initial Thoughts, Development Methodoligy, High-Level Design / Architecture quesitons | |
+| Iuri | | |
+| Nathan | | |
+
+
++++ STILL IN PROGRESS
+
 
