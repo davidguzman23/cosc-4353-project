@@ -45,3 +45,12 @@ Have the power to block volunteers
 Feature - email reminders
 6. Notification System
 Depending on the type of notification, notify a group of certain people about something
+
+
+## Group Member Participation
+| Group Member Name    | What is your contribution? | Discussion Notes |
+| -------- | ------- | ------- |
+| David | Created base project and organized content, worked on Initial Thoughts, Development Methodoligy, High-Level Design / Architecture quesitons | |
+| Ruk | worked on Initial Thoughts, Development Methodoligy, High-Level Design / Architecture quesitons | |
+| Iuri | | |
+| Nathan | | |
