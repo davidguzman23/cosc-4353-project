@@ -64,10 +64,10 @@ We chose to use Agile as our development methodology. Agile will help keep every
 ## Group Member Participation
 | Group Member Name    | What is your contribution? | Discussion Notes |
 | -------- | ------- | ------- |
-| David | Created base project and organized content, worked on Initial Thoughts, Development Methodoligy, High-Level Design / Architecture quesitons | |
-| Ruk | worked on Initial Thoughts, Development Methodoligy, High-Level Design / Architecture quesitons | |
-| Iuri | | |
-| Nathan | | |
+| David | Created base project and organized content, worked on Initial Thoughts, Development Methodoligy, High-Level Design / Architecture quesitons | Created initial repository in GitHub, discussed, summarized, and finalized main points for each question, helped design user journey through website. |
+| Ruk | Worked on Initial Thoughts, Development Methodoligy, High-Level Design / Architecture quesitons | Discussed and created main points for each question, helped design user journey through website.  Organized Group Member Participation table in README. |
+| Iuri |  |  |
+| Nathan |  |  |
 
 
 +++ STILL IN PROGRESS
