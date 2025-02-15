@@ -2,8 +2,7 @@ import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import LoginAs from './pages/LoginAs';
 import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
-import VolunteerProfile from './pages/VolunteerProfile';
-import AdminProfile from './pages/AdminProfile';
+import VolunteerProfile from './pages/Profile';
 import EventsManagement from './pages/EventsManagement';
 import NoPage from './pages/NoPage';
 
@@ -27,7 +26,6 @@ const PageRouter = () => {
           <Route path="/login-page" element={<LoginPage />} />
           <Route path="/sign-up-page" element={<SignUpPage />} />
           <Route path="/volunteer-profile" element={<VolunteerProfile />} />
-          <Route path="/admin-profile" element={<AdminProfile />} />
           <Route path="/events-management" element={<EventsManagement />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
