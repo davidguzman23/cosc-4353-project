@@ -48,7 +48,7 @@ const LoginPage = () => {
                 </Link>
               </Grid>
                <Grid>
-                <Link href ="./register">
+                <Link href ="./sign-up-page">
                   Sign Up
                 </Link>
               </Grid> 
