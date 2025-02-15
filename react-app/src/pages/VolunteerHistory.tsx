@@ -148,7 +148,7 @@ const VolunteerHistory = () => {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                padding: "10px 20px",
+                padding: "0px 20px",
                 borderBottom: "2px solid #ccc",
                 marginBottom: "20px"
             }}>
