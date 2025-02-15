@@ -20,7 +20,7 @@ var cardStyle = {
     display: 'block',
     width: '30vw',
     transitionDuration: '0.3s',
-    height: '10vw',
+    height: '25%',
     elevation:9,
     marginTop:20,
 }
@@ -29,7 +29,7 @@ var cardActionStyle = {
     display: 'block',
     width: '30vw',
     transitionDuration: '0.3s',
-    height: '10vw',
+    height: '25%',
     elevation:9,
     //marginTop:20,
 }
@@ -39,7 +39,7 @@ const LoginAs = () => {
 
         <Container> 
 
-                <Typography component="h1"  variant="h5" sx={{marginTop:4, textAlign:"center"}}>
+                <Typography component="h1"  variant="h5" sx={{paddingTop: 4, textAlign:"center"}}>
                     Login As
                 </Typography>
         

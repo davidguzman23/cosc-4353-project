@@ -172,7 +172,7 @@ const VolunteerProfile = () => {
   };
 
   return (
-    <div style={{ width: "100vw", height: "100vh", padding: "20px", boxSizing: "border-box" }}>
+    <div style={{ width: "100vw", height: "100vh", boxSizing: "border-box" }}>
       
       {/* 🔹 Top Navigation Bar */}
       <div style={{
@@ -191,9 +191,9 @@ const VolunteerProfile = () => {
         </div>
       </div>
 
-      <Box sx={{ display: "flex", width: "100vw", height: "100vh" }}>
+      <Box sx={{ display: "flex", width: "auto", height: "85%", paddingLeft: 4 }}>
         {/* 🔹 Sidebar */}
-        <Paper sx={{ width: 250, padding: 2, height: "100vh" }}>
+        <Paper sx={{ width: 250, padding: 2, height: "auto" }}>
           <Avatar sx={{ width: 80, height: 80, margin: "auto" }} />
           <Typography variant="h6" align="center" sx={{ mt: 1 }}>
             {formData.fullName || "User Name"}

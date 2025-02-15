@@ -19,8 +19,8 @@ const SignUpPage = () => {
     return (
 
 
-      <Container maxWidth="xs">
-            <Paper elevation={10} sx={{marginTop: 8, padding: 2}}>
+      <Container maxWidth="xs"  sx={{paddingTop: 8}}>
+            <Paper elevation={10} sx={{padding: 2}}>
               <Avatar sx={{
                 mx: "auto",
                 bgcolor: "secondary.main",
