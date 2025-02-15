@@ -17,6 +17,7 @@ import {
   Divider,
   FormHelperText,
 } from "@mui/material";
+import NotificationPopup from '../components/Notifications';
 
 const VolunteerProfile = () => {
   const [formData, setFormData] = useState({
@@ -186,7 +187,7 @@ const VolunteerProfile = () => {
         <div style={{ fontSize: "22px", fontWeight: "bold" }}>Volunteer App</div>
         <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
           <span style={{ cursor: "pointer" }}>Sign Out</span>
-          <span style={{ cursor: "pointer", fontSize: "20px" }}>🔔</span>
+          <NotificationPopup />
         </div>
       </div>
 
