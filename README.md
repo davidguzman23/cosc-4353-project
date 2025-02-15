@@ -214,7 +214,7 @@ We plan to integrate the following third-party service:
 | David | Created base project and organized content, worked on Initial Thoughts, Development Methodology, High-Level Design / Architecture quesitons | Created initial repository in GitHub, discussed, summarized, and finalized main points for each question, helped design user journey through website. |
 | Ruk | Worked on Initial Thoughts, Development Methodology, High-Level Design / Architecture quesitons | Discussed and created main points for each question, helped design user journey through website.  Organized Group Member Participation table in README. |
 | Iuri | Initial Thoughts, Development Methodology, Notification System, Logging in, README.md | Implemented more ideas, visuals and context to the whole project. Organized the document in a better way. Created and started the discussions for the group. |
-| Nathan | I contributed the high-level design and architecture section, including component descriptions, interaction scenarios, an integration plan for the Mailgun API, and an architecture diagram linked in the README.  | I contributed the high-level design and architecture section by detailing the main components (front-end, back-end, database, and Mailgun API), describing key interaction flows (registration, matching, notifications), and adding an architecture diagram linked in the README. |
+| Nathen | I contributed the high-level design and architecture section, including component descriptions, interaction scenarios, an integration plan for the Mailgun API, and an architecture diagram linked in the README.  | I contributed the high-level design and architecture section by detailing the main components (front-end, back-end, database, and Mailgun API), describing key interaction flows (registration, matching, notifications), and adding an architecture diagram linked in the README. |
 
 
 <br>
@@ -244,4 +244,4 @@ The screenshots can be seen in the UI folder.
 | David | Login, User Registration Page, and Option to Login as Admin | Created the Login, Login As, and Sign Up page using Material UI. Organized the current README.  |
 | Ruk | Profile page, Volunteer History, Notifications, QA, Theme | Created the profile page, created and added content to volunteer history, worked on notifications dropdown, QA changes and make themes pretty. |
 | Iuri | Volunteer History, Notifications, QA, Theme | Created and added content to volunteer history, worked on notifications dropdown, QA changes and make themes pretty. |
-| Nathan |  Event Management, Volunteer Matching Form, and Admin Profile | Created admin pages to manage events/volunteers using CSS. |
+| Nathen |  Event Management, Volunteer Matching Form, and Admin Profile | Created admin pages to manage events/volunteers using CSS. |
