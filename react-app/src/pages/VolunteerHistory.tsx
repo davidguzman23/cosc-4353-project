@@ -1,5 +1,6 @@
 import React from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
+import NotificationPopup from '../components/Notifications';
 
 const VolunteerHistory = () => {
     const volunteerHistory = [
@@ -156,7 +157,7 @@ const VolunteerHistory = () => {
                 <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
                 <span style={{ cursor: "pointer" }}>Profile</span>
                 <span style={{ cursor: "pointer" }}>Sign Out</span>
-                <span style={{ cursor: "pointer", fontSize: "20px" }}>🔔</span>
+                <NotificationPopup />
                 </div>
             </div>
 

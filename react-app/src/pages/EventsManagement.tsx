@@ -1,6 +1,7 @@
 import React from "react";
 import EventManagementForm from "../components/EventManagementForm";
 import VolunteerMatchingForm from "../components/VolunteerMatchingForm";
+import NotificationPopup from '../components/Notifications';
 
 const AdminProfile: React.FC = () => {
   return (
@@ -20,7 +21,7 @@ const AdminProfile: React.FC = () => {
         <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
           <span style={{ cursor: "pointer" }}>Profile</span>
           <span style={{ cursor: "pointer" }}>Sign Out</span>
-          <span style={{ cursor: "pointer", fontSize: "20px" }}>🔔</span>
+          <NotificationPopup />
         </div>
       </div>
 
