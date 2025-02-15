@@ -184,7 +184,7 @@ const VolunteerProfile = () => {
         marginBottom: "20px"
       }}>
         <div style={{ fontSize: "18px", fontWeight: "bold", cursor: "pointer" }}>Home</div>
-        <div style={{ fontSize: "22px", fontWeight: "bold" }}>Volunteer App</div>
+        <div style={{ fontSize: "22px", fontWeight: "bold" }}>Homeboy Volunteering</div>
         <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
           <span style={{ cursor: "pointer" }}>Sign Out</span>
           <NotificationPopup />
