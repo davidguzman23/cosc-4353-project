@@ -206,6 +206,9 @@ const VolunteerProfile = () => {
               <ListItemText primary="Events" />
             </ListItem>
             <ListItem button>
+              <ListItemText primary="History" />
+            </ListItem>
+            <ListItem button>
               <ListItemText primary="Profile" />
             </ListItem>
           </List>
