@@ -1,4 +1,4 @@
-import LoginPage from './LoginPage';
+import LoginPage from './pages/LoginPage';
 import PageRouter from './PageRouter';
 
 function App()
