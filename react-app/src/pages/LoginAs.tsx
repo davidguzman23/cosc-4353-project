@@ -62,7 +62,7 @@ const LoginAs = () => {
             
 
                 <Card style={cardStyle}/*sx={{ minHeight:'100vh'}} */> 
-                    <CardActionArea href="/LoginPage" style ={cardActionStyle}>
+                    <CardActionArea href="/login-page" style ={cardActionStyle}>
                         <CardContent>
                             <Avatar sx={{mx: "auto", textAlign: "center", mb:1}}>
                                 <EmojiPeopleIcon/>
@@ -75,7 +75,7 @@ const LoginAs = () => {
                 </Card>
 
                 <Card style={cardStyle}> 
-                    <CardActionArea href="/LoginPage" style ={cardActionStyle}>
+                    <CardActionArea href="/login-page" style ={cardActionStyle}>
                         <CardContent>
                             <Avatar sx={{mx: "auto", textAlign: "center", mb:1, }}>
                                 <EngineeringIcon />

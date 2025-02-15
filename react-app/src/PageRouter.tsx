@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import LoginAs from './pages/LoginAs';
 import SignUpPage from './pages/SignUpPage';
-import LoginPage from './LoginPage';
+import LoginPage from './pages/LoginPage';
 import VolunteerProfile from './pages/VolunteerProfile';
 import AdminProfile from './pages/AdminProfile';
 import EventsManagement from './pages/EventsManagement';
+import NoPage from './pages/NoPage';
 
 const PageRouter = () => {
     return (
