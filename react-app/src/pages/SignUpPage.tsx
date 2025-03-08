@@ -1,6 +1,3 @@
-// import { Container, Paper } from "@mui/material";
-import React from 'react'
-
 import Container from "@mui/material/Container"
 import Paper from "@mui/material/Paper"
 import Box from "@mui/material/Box"
@@ -8,7 +5,7 @@ import { Avatar, FormControlLabel, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox'
 import Button from'@mui/material/Button'
-import Grid from '@mui/material/Grid2'
+
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Link from '@mui/material/Link';
@@ -19,8 +16,8 @@ const SignUpPage = () => {
     return (
 
 
-      <Container maxWidth="xs"  sx={{paddingTop: 8}}>
-            <Paper elevation={10} sx={{padding: 2}}>
+      <Container maxWidth="xs">
+            <Paper elevation={10} sx={{marginTop: 8, padding: 2}}>
               <Avatar sx={{
                 mx: "auto",
                 bgcolor: "secondary.main",
@@ -52,20 +49,5 @@ const SignUpPage = () => {
 
     );
 };
-/*
-const Center = () => {
-   return (
-    //<React.Fragment>
-   <Box  sx={{ display: 'flex' ,justifyContent:'center',alignItems:'center', minHeight:'100vh'}} 
 
-        //minHeight="100vh"
-      >
-        2. tBoxw2 (alignItems and justifyContent)
-      </Box>
-      //</React.Fragment>
-
-    );
-
-};
-*/
 export default SignUpPage;
