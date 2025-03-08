@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   IconButton,
   Badge,
@@ -18,30 +18,17 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import WarningIcon from "@mui/icons-material/Warning";
 import ErrorIcon from "@mui/icons-material/Error";
-
-const notifications = [
-  {
-    id: 1,
-    message: "New volunteer event available!",
-    time: "10 minutes ago",
-    type: "success",
-  },
-  {
-    id: 2,
-    message: "Reminder: Event tomorrow at 10 AM",
-    time: "1 hour ago",
-    type: "warning",
-  },
-  {
-    id: 3,
-    message: "Profile update required!",
-    time: "2 hours ago",
-    type: "error",
-  },
-];
+import axios from 'axios';
 
 const NotificationPopup = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [notifications, setNotifications] = useState<{ id: number, message: string, time: string, type: string}[]>([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/notifications")
+      .then(response => setNotifications(response.data))
+      .catch(error => console.error("Error fetching notifications:", error));
+  }, []);
 
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);

@@ -2,6 +2,7 @@ import React from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import NotificationPopup from '../components/Notifications';
 import axios from "axios";
+import { useState, useEffect } from "react";
 
 const VolunteerHistory = () => {
     const [volunteerHistory, setVolunteerHistory] = useState<{ eventName: string, description: string, location: string, skills: string, urgency: string, eventDate: string, status: string }[]>([]);
