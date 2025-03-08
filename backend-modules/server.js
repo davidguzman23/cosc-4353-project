@@ -188,6 +188,27 @@ let volunteerHistory = [
     }
 ]
 
+const notifications = [
+    {
+        id: 1,
+        message: "New volunteer event available!",
+        time: "10 minutes ago",
+        type: "success",
+    },
+    {
+        id: 2,
+        message: "Reminder: Event tomorrow at 10 AM",
+        time: "1 hour ago",
+        type: "warning",
+    },
+    {
+        id: 3,
+        message: "Profile update required!",
+        time: "2 hours ago",
+        type: "error",
+    },
+];
+
 // 🔹 Validation Functions
 const validateEvent = (event) => {
     let errors = {};
@@ -246,6 +267,10 @@ app.delete("/api/events/:id", (req, res) => {
 
   events = events.filter(event => event.id !== eventId);
   res.json({ message: "Event deleted successfully" });
+});
+
+app.get("/api/notifications", (req, res) => {
+res.json(notifications);
 });
 
 // 🔹 API: Get All Volunteers
