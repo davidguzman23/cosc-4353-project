@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../server"); // ✅ Import your actual Express app
+const app = require("../server"); 
 
 describe("Event Management API", () => {
     it("should create an event successfully", async () => {
@@ -8,13 +8,13 @@ describe("Event Management API", () => {
             .send({
                 title: "Test Event",
                 location: "Community Park",
-                skills_required: ["Teamwork", "Trash Collection"], // ✅ Ensure array format
+                skills_required: ["Teamwork", "Trash Collection"], 
                 urgency: "Medium",
                 details: "Helping clean up the park",
                 date: "2025-05-10"
             });
     
-        console.log("Response Body:", res.body);  // ✅ Debugging
+        console.log("Response Body:", res.body);  //Debugging
     
         expect(res.statusCode).toEqual(201);
         expect(res.body.event).toHaveProperty("id");
@@ -24,15 +24,15 @@ describe("Event Management API", () => {
     it("should fail when required fields are missing", async () => {
         const res = await request(app).post("/api/events").send({});
     
-        console.log("Response Body:", res.body);  // ✅ Debugging
+        console.log("Response Body:", res.body);  
     
         expect(res.statusCode).toEqual(400);
-        expect(res.body).toHaveProperty("errors");  // ✅ Ensure "errors" key exists
+        expect(res.body).toHaveProperty("errors");  
         expect(res.body.errors).toMatchObject({
             title: "Title is required",
             details: "Details cannot be empty",
             location: "Location is required",
-            skills_required: "At least one skill is required",  // 🔹 Fixed expected message
+            skills_required: "At least one skill is required",  // Fixed expected message
             urgency: "Urgency is required",
             date: "Date is required"
         });
@@ -42,7 +42,7 @@ describe("Event Management API", () => {
     it("should return all events", async () => {
         const res = await request(app).get("/api/events");
         expect(res.statusCode).toEqual(200);
-        expect(Array.isArray(res.body)).toBe(true); // ✅ Ensure it returns an array
+        expect(Array.isArray(res.body)).toBe(true);
     });
 
     it("should delete an event successfully", async () => {
@@ -72,10 +72,10 @@ describe("Event Management API", () => {
     it("should return 404 when trying to delete a non-existent event", async () => {
         const res = await request(app).delete("/api/events/999");
     
-        console.log("Delete Non-Existent Event Response:", res.body); // ✅ Debugging
+        console.log("Delete Non-Existent Event Response:", res.body); // Debugh
     
         expect(res.statusCode).toEqual(404);
-        expect(res.body).toHaveProperty("message", "Event not found"); // ✅ Ensure response has the message
+        expect(res.body).toHaveProperty("message", "Event not found"); // Ensure response has the message
     });
     
     

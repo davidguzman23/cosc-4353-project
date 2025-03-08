@@ -7,7 +7,7 @@ const EventManagementForm: React.FC = () => {
     title: string;
     details: string;
     location: string;
-    skills_required: string[];  // ✅ Fix: Properly define as array
+    skills_required: string[];  
     urgency: string;
     date: string;
   };
@@ -19,7 +19,7 @@ const EventManagementForm: React.FC = () => {
     title: "",
     details: "",
     location: "",
-    skills_required: [],  // ✅ Ensure skills are stored as an array
+    skills_required: [],  
     urgency: "",
     date: "",
   });
@@ -50,12 +50,12 @@ const EventManagementForm: React.FC = () => {
     e.preventDefault();
     setError(""); // Clear previous errors
 
-    // ✅ Ensure all fields are correctly validated
+    // Ensure all fields are correctly validated
     if (
       !eventData.title.trim() ||
       !eventData.details.trim() ||
       !eventData.location.trim() ||
-      eventData.skills_required.length === 0 ||  // ✅ Check array length
+      eventData.skills_required.length === 0 ||  
       !eventData.urgency ||
       !eventData.date
     ) {
@@ -103,12 +103,12 @@ const EventManagementForm: React.FC = () => {
         <textarea name="details" placeholder="Event Details" value={eventData.details} onChange={handleChange} required />
         <input type="text" name="location" placeholder="Location" value={eventData.location} onChange={handleChange} required />
 
-        {/* ✅ Skills Input (Properly handles array) */}
+        {/* Skills Input (Properly handles array) */}
         <input
           type="text"
           name="skills_required"
           placeholder="Required Skills (comma-separated)"
-          value={eventData.skills_required.join(", ")} // ✅ Convert array back to string for display
+          value={eventData.skills_required.join(", ")} 
           onChange={handleChange}
           required
         />
