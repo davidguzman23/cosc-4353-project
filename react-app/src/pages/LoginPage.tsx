@@ -1,3 +1,4 @@
+
 import React from 'react'
 import Container from "@mui/material/Container"
 import Paper from "@mui/material/Paper"
@@ -11,8 +12,53 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Link from '@mui/material/Link';
 import {Link as RouterLink} from "react-router-dom";
 
+import { useState } from "react"
+import axios from 'axios'
+import {toast} from 'react-hot-toast'
+import {useNavigate} from 'react-router-dom'
+
+/*export default function LoginPage(){
+
+}*/
+
 const LoginPage = () => {
+  const Navigate = useNavigate();
+  const [data, setData] = useState({
+    username: '',
+    password: '',
+  })
+
+  const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const {username, password} = data
+    try {
+      const {data} = await axios.post('/login',{
+        username,
+        password
+      }
+      )
+      if(data.error)
+      {
+        toast.error(data.error)
+      }
+      else
+      {
+        Navigate('/EventsManagment');
+      }
+    }
+    catch (error)
+    {
+
+    }
+  }
+
+
+
+
+
   const handleSubmit = () => console.log("login");
+
+
     return (
 
 
@@ -31,9 +77,9 @@ const LoginPage = () => {
                 Log In
               </Typography>
             
-             <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt:1}}>
-              <TextField placeholder="Enter username" fullWidth required autoFocus sx={{mb:2}}/>
-              <TextField placeholder="Enter password" fullWidth required type="password"/>
+             <Box component="form" onSubmit={loginUser} noValidate sx={{mt:1}}>
+              <TextField placeholder="Enter username" fullWidth required autoFocus       value={data.username} onChange={(e) => setData({...data,username: e.target.value})} sx={{mb:2}}/>
+              <TextField placeholder="Enter password" fullWidth required type="password" value={data.password} onChange={(e) => setData({...data,password: e.target.value})}/>
               <FormControlLabel 
                 control = {<Checkbox value="remember" color="primary"/>}
                 label = "Remember me"
