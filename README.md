@@ -254,7 +254,7 @@ We used axios, react, cors, http, request
 ## Group Member Participation
 | Group Member Name    | What is your contribution? | Discussion Notes |
 | -------- | ------- | ------- |
-| David | Login |   |
+| David | Login |  Handled user authentication, registration, and login functionality through nodejs |
 | Ruk | Unit testing, notification messages | Created unit test cases, dynamically update notification messages from state. |
 | Iuri | Unit testing, volunteering history | Created unit test cases, dynamically update volunteering history from state |
 | Nathen | Unit testing, Event Management, Volunteering management | Created unit test cases, dynamically update event management and volunteering management from state. |
