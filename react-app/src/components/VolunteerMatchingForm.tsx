@@ -1,76 +1,92 @@
-import React, { useState } from "react";
-
-// Mock Data for Volunteers
-const volunteers = [
-  { name: "John Doe", skills: "First Aid, CPR", available: "Weekends" },
-  { name: "Jane Smith", skills: "Organizing, Fundraising", available: "Weekdays" },
-];
-
-// Mock Data for Events
-const events = [
-  { 
-    name: "Blood Donation Drive", 
-    description: "A community blood donation event.",
-    requiredSkills: "First Aid, CPR"
-  },
-  { 
-    name: "Food Drive", 
-    description: "Collecting and distributing food to the needy.",
-    requiredSkills: "Organizing, Fundraising"
-  }
-];
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const VolunteerMatchingForm: React.FC = () => {
-  const [selectedVolunteer, setSelectedVolunteer] = useState<string>("");
-  const [selectedEvent, setSelectedEvent] = useState<string>("");
+  const [volunteers, setVolunteers] = useState<{ id: number, name: string, skills: string[], location: string }[]>([]);
+  const [events, setEvents] = useState<{ id: number, title: string, details: string, skills_required: string, location: string }[]>([]);
+  const [selectedVolunteer, setSelectedVolunteer] = useState<number | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
+  const [matched, setMatched] = useState<string | null>(null);
+
+  // 🔹 Fetch Volunteers
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/volunteers")
+      .then(response => setVolunteers(response.data))
+      .catch(error => console.error("Error fetching volunteers:", error));
+  }, []);
+
+  // 🔹 Fetch Events
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/events")
+      .then(response => setEvents(response.data))
+      .catch(error => console.error("Error fetching events:", error));
+  }, []);
+
+  // 🔹 Handle Matching Request
+  const handleMatch = async () => {
+    if (!selectedVolunteer || !selectedEvent) {
+      setMatched("Please select both a volunteer and an event.");
+      return;
+    }
+
+    try {
+      const response = await axios.get("http://localhost:5000/api/match-volunteers");
+      const matches = response.data.matches;
+
+      const isMatched = matches.some((match: { volunteer: string; event: string }) => 
+      match.volunteer === volunteers.find(v => v.id === selectedVolunteer)?.name &&
+      match.event === events.find(e => e.id === selectedEvent)?.title
+  );  
+
+      setMatched(isMatched ? "This volunteer is a good match for the event!" : "No match found.");
+    } catch (error) {
+      console.error("Error matching volunteers:", error);
+      setMatched("Error checking matches.");
+    }
+  };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
       {/* Select Volunteer Dropdown */}
       <label>Select a Volunteer:</label>
       <select 
-        value={selectedVolunteer} 
-        onChange={(e) => setSelectedVolunteer(e.target.value)}
+        value={selectedVolunteer ?? ""}
+        onChange={(e) => setSelectedVolunteer(Number(e.target.value))}
         style={{ width: "100%", padding: "8px", fontSize: "16px" }}
       >
         <option value="">-- Choose Volunteer --</option>
-        {volunteers.map((volunteer, index) => (
-          <option key={index} value={volunteer.name}>
-            {volunteer.name}
+        {volunteers.map((volunteer) => (
+          <option key={volunteer.id} value={volunteer.id}>
+            {volunteer.name} (Skills: {volunteer.skills.join(", ")})
           </option>
         ))}
       </select>
 
-      {/* Show Volunteer Details */}
-      {selectedVolunteer && (
+      {/* Select Event Dropdown */}
+      <label>Select an Event:</label>
+      <select 
+        value={selectedEvent ?? ""}
+        onChange={(e) => setSelectedEvent(Number(e.target.value))}
+        style={{ width: "100%", padding: "8px", fontSize: "16px" }}
+      >
+        <option value="">-- Choose Event --</option>
+        {events.map((event) => (
+          <option key={event.id} value={event.id}>
+            {event.title} (Skills: {event.skills_required})
+          </option>
+        ))}
+      </select>
+
+      {/* Match Button */}
+      <button onClick={handleMatch} style={{ padding: "10px", fontSize: "16px", cursor: "pointer" }}>
+        Check Match
+      </button>
+
+      {/* Display Match Result */}
+      {matched && (
         <div style={{ padding: "10px", border: "1px solid black", borderRadius: "5px", backgroundColor: "#f9f9f9" }}>
-          <h3>{selectedVolunteer}</h3>
-          <p><strong>Skills:</strong> {volunteers.find((v) => v.name === selectedVolunteer)?.skills}</p>
-          <p><strong>Availability:</strong> {volunteers.find((v) => v.name === selectedVolunteer)?.available}</p>
-
-          {/* Event Selection Dropdown */}
-          <label>Select an Event:</label>
-          <select 
-            value={selectedEvent} 
-            onChange={(e) => setSelectedEvent(e.target.value)}
-            style={{ width: "100%", padding: "8px", fontSize: "16px" }}
-          >
-            <option value="">-- Choose Event --</option>
-            {events.map((event, index) => (
-              <option key={index} value={event.name}>
-                {event.name} - {event.description} (Skills: {event.requiredSkills})
-              </option>
-            ))}
-          </select>
-
-          {/* Show Selected Event Details */}
-          {selectedEvent && (
-            <div style={{ marginTop: "10px", padding: "10px", border: "1px solid black", borderRadius: "5px", backgroundColor: "#eef3ff" }}>
-              <h3>Selected Event: {selectedEvent}</h3>
-              <p><strong>Description:</strong> {events.find((e) => e.name === selectedEvent)?.description}</p>
-              <p><strong>Required Skills:</strong> {events.find((e) => e.name === selectedEvent)?.requiredSkills}</p>
-            </div>
-          )}
+          <h3>Match Result:</h3>
+          <p>{matched}</p>
         </div>
       )}
     </div>
