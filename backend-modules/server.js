@@ -269,9 +269,29 @@ app.delete("/api/events/:id", (req, res) => {
   res.json({ message: "Event deleted successfully" });
 });
 
+
+
+
+
+
 app.get("/api/notifications", (req, res) => {
-res.json(notifications);
+    res.json(notifications);
 });
+
+app.post("/api/notifications", (req, res) => {
+    const newNotification = {
+        id: notifications.length + 1,
+        ...req.body
+    };
+
+    notifications.push(newNotification);
+    res.status(201).json({ message: "Notification created successfully!", notification: newNotification });
+});
+
+
+
+
+
 
 // 🔹 API: Get All Volunteers
 app.get("/api/volunteers", (req, res) => {
