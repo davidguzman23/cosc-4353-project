@@ -7,30 +7,30 @@ const mongoose = require("mongoose");
 const app = express();
 const server = http.createServer(app);
 
-// ✅ CORS Configuration
+//CORS Configuration
 const corsOptions = {
-  origin: "http://localhost:5173", // Allow frontend requests
+  origin: "http://localhost:5173", 
   methods: "GET,POST,PUT,DELETE",
   allowedHeaders: "Content-Type,Authorization",
   credentials: true
 };
 app.use(cors(corsOptions));
 
-// ✅ Middleware
+// Middleware
 app.use(express.json());
 
 const PORT = process.env.PORT || 5001;
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/cosc_4353_project";
 
-// ✅ Connect to MongoDB
+// Connect to Mongo
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("✅ Connected to MongoDB"))
+  .then(() => console.log("Connected to MongoDB"))
   .catch(err => {
-    console.error("❌ MongoDB connection error:", err);
+    console.error("MongoDB connection error:", err);
     process.exit(1);
   });
 
-// ✅ Define Mongoose Schemas & Models
+// Define  Schemas & Models
 const EventSchema = new mongoose.Schema({
   title: { type: String, required: true },
   location: { type: String, required: true },
@@ -57,9 +57,7 @@ const NotificationSchema = new mongoose.Schema({
 });
 const Notification = mongoose.model("Notification", NotificationSchema);
 
-// ✅ API Routes
-
-// 🔹 Get All Events
+// Get  Events
 app.get("/api/events", async (req, res) => {
   try {
     const events = await Event.find();
@@ -69,7 +67,7 @@ app.get("/api/events", async (req, res) => {
   }
 });
 
-// 🔹 Create a New Event
+// Create Event
 app.post("/api/events", async (req, res) => {
   try {
     const newEvent = new Event(req.body);
@@ -80,7 +78,7 @@ app.post("/api/events", async (req, res) => {
   }
 });
 
-// 🔹 Get All Volunteers
+// Get All Volunteers
 app.get("/api/volunteers", async (req, res) => {
   try {
     const volunteers = await Volunteer.find();
@@ -90,7 +88,7 @@ app.get("/api/volunteers", async (req, res) => {
   }
 });
 
-// 🔹 Register a Volunteer
+// Register a Volunteer
 app.post("/api/volunteers", async (req, res) => {
   try {
     const newVolunteer = new Volunteer(req.body);
@@ -101,10 +99,10 @@ app.post("/api/volunteers", async (req, res) => {
   }
 });
 
-// ✅ Start Server (Only in Production)
+// Start Server 
 if (process.env.NODE_ENV !== "test") {
   server.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
   });
 }
 
