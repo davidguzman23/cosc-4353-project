@@ -13,9 +13,39 @@ import Grid from '@mui/material/Grid2'
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Link from '@mui/material/Link';
 import {Link as RouterLink} from "react-router-dom";
+import { useState } from "react"
+import axios from 'axios'
+
+import {toast} from 'react-hot-toast'
 
 const SignUpPage = () => {
   const handleSubmit = () => console.log("login");
+
+    const [data, setData] = useState({
+      username: '',
+      email: '',
+      password: '',
+    })
+
+    const registerUser = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      const {username, email, password} = data
+      try {
+        const {data} = await axios.post('/SignUpPage', {
+            username, email, password
+          })
+          if(data.error){
+            toast.error(data.error)
+          }
+          else{
+            //setData()
+            toast.success('Login Successful')
+          }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
     return (
 
 
@@ -34,10 +64,10 @@ const SignUpPage = () => {
                 Sign Up
               </Typography>
             
-             <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt:1}}>
-              <TextField placeholder="Enter email" fullWidth required autoFocus sx={{mb:2}}/>
-              <TextField placeholder="Enter username" fullWidth required autoFocus sx={{mb:2}}/>
-              <TextField placeholder="Enter password" fullWidth required type="password"/>
+             <Box component="form" onSubmit={registerUser} noValidate sx={{mt:1}}>
+              <TextField placeholder="Enter email" fullWidth required autoFocus  sx={{mb:2}}   value={data.email} onChange={(e) => setData({...data,email: e.target.value})}/>
+              <TextField placeholder="Enter username" fullWidth required autoFocus sx={{mb:2}} value={data.username} onChange={(e) => setData({...data,username: e.target.value})}/>
+              <TextField placeholder="Enter password" fullWidth required type="password"       value={data.password} onChange={(e) => setData({...data,password: e.target.value})}/>
               <FormControlLabel 
                 control = {<Checkbox value="remember" color="primary"/>}
                 label = "Remember me"

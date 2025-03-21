@@ -1,0 +1,44 @@
+import { render, screen } from "@testing-library/react";
+import LoginAs from "./LoginAs";
+import { BrowserRouter } from "react-router-dom";
+import '@testing-library/jest-dom'
+
+describe("LoginAs Component", () => {
+  test("renders LoginAs component with title", () => {
+    render(
+      <BrowserRouter>
+        <LoginAs />
+      </BrowserRouter>
+    );
+
+    // Check for heading
+    expect(screen.getByRole("heading", { name: /login as/i })).toBeInTheDocument();
+  });
+
+  test("renders Volunteer and Administrator options", () => {
+    render(
+      <BrowserRouter>
+        <LoginAs />
+      </BrowserRouter>
+    );
+
+    // Check for Volunteer card
+    expect(screen.getByRole("heading", { name: /volunteer/i })).toBeInTheDocument();
+    
+    // Check for Administrator card
+    expect(screen.getByRole("heading", { name: /administrator/i })).toBeInTheDocument();
+  });
+
+  test("checks if both cards have correct links", () => {
+    render(
+      <BrowserRouter>
+        <LoginAs />
+      </BrowserRouter>
+    );
+
+    const links = screen.getAllByRole("link");
+    expect(links).toHaveLength(2);
+    expect(links[0]).toHaveAttribute("href", "/LoginPage");
+    expect(links[1]).toHaveAttribute("href", "/LoginPage");
+  });
+});

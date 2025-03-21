@@ -1,12 +1,76 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+// let notifications = []; // Store notifications in memory
+// let ws = null; // WebSocket connection
+
+// // Initialize WebSocket Connection
+// export function initWebSocket() {
+//     ws = new WebSocket("ws://localhost:5000");
+
+//     ws.onmessage = (event) => {
+//         const notification = JSON.parse(event.data);
+//         notifications.push(notification.message);
+//         updateNotificationList();
+//     };
+
+//     ws.onopen = () => console.log("WebSocket connected");
+//     ws.onclose = () => console.log("WebSocket disconnected");
+// }
+
+// // Send a notification request to the backend
+// export async function sendTestNotification() {
+//     try {
+//         const response = await fetch("http://localhost:5000/events/assign", {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify({
+//                 eventId: "101",
+//                 volunteerId: "1", // Hardcoded volunteer (Alice)
+//             }),
+//         });
+
+//         if (!response.ok) {
+//             throw new Error("Failed to send notification");
+//         }
+
+//         alert("Notification triggered!");
+//     } catch (error) {
+//         console.error("Error sending notification:", error);
+//     }
+// }
+
+// // Update the notifications list in the UI
+// function updateNotificationList() {
+//     const listElement = document.getElementById("notificationList");
+//     if (listElement) {
+//         listElement.innerHTML = ""; // Clear the list
+//         notifications.forEach((note) => {
+//             const li = document.createElement("li");
+//             li.textContent = note;
+//             listElement.appendChild(li);
+//         });
+//     }
+// }
+
+
 const VolunteerMatchingForm: React.FC = () => {
   const [volunteers, setVolunteers] = useState<{ id: number, name: string, skills: string[], location: string }[]>([]);
   const [events, setEvents] = useState<{ id: number, title: string, details: string, skills_required: string, location: string }[]>([]);
   const [selectedVolunteer, setSelectedVolunteer] = useState<number | null>(null);
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
   const [matched, setMatched] = useState<string | null>(null);
+
+
+
+
+
+  
+
+
+
 
   // 🔹 Fetch Volunteers
   useEffect(() => {
@@ -89,6 +153,21 @@ const VolunteerMatchingForm: React.FC = () => {
           <p>{matched}</p>
         </div>
       )}
+
+
+
+      {/* <h2>Test WebSocket Notifications</h2>
+      <button onclick="sendTestNotification()">Send Notification</button>
+      <ul id="notificationList"></ul>
+
+      <script type="module">
+          import { initWebSocket, sendTestNotification } from "./notificationsTester.js";
+
+          // Initialize WebSocket on page load
+          initWebSocket();
+      </script> */}
+
+
     </div>
   );
 };

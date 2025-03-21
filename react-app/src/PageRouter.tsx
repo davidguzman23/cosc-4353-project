@@ -8,6 +8,7 @@ import VolunteerHistory from './pages/VolunteerHistory';
 import NoPage from './pages/NoPage';
 import EventManagementForm from './components/EventManagementForm';
 import VolunteerMatchingForm from './components/VolunteerMatchingForm';  // ✅ Import this
+import Notificiations from './components/Notifications';
 
 const PageRouter = () => {
     return (
@@ -22,6 +23,7 @@ const PageRouter = () => {
           <Route path="/volunteer-history" element={<VolunteerHistory />} />
           <Route path="/event-management" element={<EventManagementForm />} />
           <Route path="/volunteer-matching" element={<VolunteerMatchingForm />} />  {/* ✅ Added this route */}
+          <Route path="/notifications" element={<Notificiations />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
         </div>

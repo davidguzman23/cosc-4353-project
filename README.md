@@ -245,3 +245,16 @@ The screenshots can be seen in the UI folder.
 | Ruk | Profile page, Volunteer History, Notifications, QA, Theme | Created the profile page, created and added content to volunteer history, worked on notifications dropdown, QA changes and make themes pretty. |
 | Iuri | Volunteer History, Notifications, QA, Theme | Created and added content to volunteer history, worked on notifications dropdown, QA changes and make themes pretty. |
 | Nathen |  Event Management, Volunteer Matching Form, and Admin Profile | Created admin pages to manage events/volunteers using CSS. |
+
+# Assignment 3
+
+## Backend Technologies
+We used axios, react, cors, http, request
+
+## Group Member Participation
+| Group Member Name    | What is your contribution? | Discussion Notes |
+| -------- | ------- | ------- |
+| David | Login |  Handled user authentication, registration, and login functionality through nodejs |
+| Ruk | Unit testing, notification messages | Created unit test cases, dynamically update notification messages from state. |
+| Iuri | Unit testing, volunteering history | Created unit test cases, dynamically update volunteering history from state |
+| Nathen | Unit testing, Event Management, Volunteering management | Created unit test cases, dynamically update event management and volunteering management from state. |
