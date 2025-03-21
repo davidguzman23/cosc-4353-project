@@ -1,126 +1,113 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-// let notifications = []; // Store notifications in memory
-// let ws = null; // WebSocket connection
-
-// // Initialize WebSocket Connection
-// export function initWebSocket() {
-//     ws = new WebSocket("ws://localhost:5000");
-
-//     ws.onmessage = (event) => {
-//         const notification = JSON.parse(event.data);
-//         notifications.push(notification.message);
-//         updateNotificationList();
-//     };
-
-//     ws.onopen = () => console.log("WebSocket connected");
-//     ws.onclose = () => console.log("WebSocket disconnected");
-// }
-
-// // Send a notification request to the backend
-// export async function sendTestNotification() {
-//     try {
-//         const response = await fetch("http://localhost:5000/events/assign", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify({
-//                 eventId: "101",
-//                 volunteerId: "1", // Hardcoded volunteer (Alice)
-//             }),
-//         });
-
-//         if (!response.ok) {
-//             throw new Error("Failed to send notification");
-//         }
-
-//         alert("Notification triggered!");
-//     } catch (error) {
-//         console.error("Error sending notification:", error);
-//     }
-// }
-
-// // Update the notifications list in the UI
-// function updateNotificationList() {
-//     const listElement = document.getElementById("notificationList");
-//     if (listElement) {
-//         listElement.innerHTML = ""; // Clear the list
-//         notifications.forEach((note) => {
-//             const li = document.createElement("li");
-//             li.textContent = note;
-//             listElement.appendChild(li);
-//         });
-//     }
-// }
-
-
 const VolunteerMatchingForm: React.FC = () => {
-  const [volunteers, setVolunteers] = useState<{ id: number, name: string, skills: string[], location: string }[]>([]);
-  const [events, setEvents] = useState<{ id: number, title: string, details: string, skills_required: string, location: string }[]>([]);
-  const [selectedVolunteer, setSelectedVolunteer] = useState<number | null>(null);
-  const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
-  const [matched, setMatched] = useState<string | null>(null);
+  type VolunteerType = {
+    _id: string;
+    name: string;
+    skills: string[];
+    location: string;
+  };
 
+  type EventType = {
+    _id: string;
+    title: string;
+    details: string;
+    skills_required: string[];
+    location: string;
+    assigned_volunteers: string[]; // Stores volunteer IDs
+  };
 
+  const [volunteers, setVolunteers] = useState<VolunteerType[]>([]);
+  const [events, setEvents] = useState<EventType[]>([]);
+  const [selectedVolunteer, setSelectedVolunteer] = useState<string | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
+  const [matchMessage, setMatchMessage] = useState<string | null>(null);
+  const [assignMessage, setAssignMessage] = useState<string | null>(null);
 
-
-
-  
-
-
-
-
-  // 🔹 Fetch Volunteers
+  // Fetch Volunteers
   useEffect(() => {
     axios.get("http://localhost:5001/api/volunteers")
-      .then(response => setVolunteers(response.data))
+      .then(response => {
+        console.log("Fetched volunteers:", response.data);
+        setVolunteers(response.data);
+      })
       .catch(error => console.error("Error fetching volunteers:", error));
   }, []);
 
-  // 🔹 Fetch Events
+  // Fetch Events
   useEffect(() => {
     axios.get("http://localhost:5001/api/events")
-      .then(response => setEvents(response.data))
+      .then(response => {
+        console.log("Fetched events:", response.data);
+        setEvents(response.data);
+      })
       .catch(error => console.error("Error fetching events:", error));
   }, []);
 
-  // 🔹 Handle Matching Request
-  const handleMatch = async () => {
+  // 🔹 Check if the volunteer is a good match for the event
+  const handleCheckMatch = async () => {
     if (!selectedVolunteer || !selectedEvent) {
-      setMatched("Please select both a volunteer and an event.");
+      setMatchMessage("Please select both a volunteer and an event.");
       return;
     }
 
     try {
-      const response = await axios.get("http://localhost:5001/api/match-volunteers");
-      const matches = response.data.matches;
+      const response = await axios.post("http://localhost:5001/api/match-volunteer", {
+        volunteerId: selectedVolunteer,
+        eventId: selectedEvent,
+      });
 
-      const isMatched = matches.some((match: { volunteer: string; event: string }) => 
-      match.volunteer === volunteers.find(v => v.id === selectedVolunteer)?.name &&
-      match.event === events.find(e => e.id === selectedEvent)?.title
-  );  
-
-      setMatched(isMatched ? "This volunteer is a good match for the event!" : "No match found.");
+      setMatchMessage(response.data.message);
     } catch (error) {
-      console.error("Error matching volunteers:", error);
-      setMatched("Error checking matches.");
+      console.error("Error checking match:", error);
+      setMatchMessage("Error checking match.");
+    }
+  };
+
+  // 🔹 Assign Volunteer to the Event
+  const handleAssignVolunteer = async () => {
+    if (!selectedVolunteer || !selectedEvent) {
+      setAssignMessage("Please select both a volunteer and an event.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:5001/api/assign-volunteer", {
+        volunteerId: selectedVolunteer,
+        eventId: selectedEvent,
+      });
+
+      setAssignMessage(response.data.message);
+
+      // Update event list to reflect new assignments
+      const updatedEvents = events.map(event =>
+        event._id === selectedEvent
+          ? { ...event, assigned_volunteers: [...event.assigned_volunteers, selectedVolunteer] }
+          : event
+      );
+
+      setEvents(updatedEvents);
+    } catch (error) {
+      console.error("Error assigning volunteer:", error);
+      setAssignMessage("Error assigning volunteer.");
     }
   };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+      <h2>Volunteer Matching</h2>
+
       {/* Select Volunteer Dropdown */}
       <label>Select a Volunteer:</label>
-      <select 
+      <select
         value={selectedVolunteer ?? ""}
-        onChange={(e) => setSelectedVolunteer(Number(e.target.value))}
+        onChange={(e) => setSelectedVolunteer(e.target.value)}
         style={{ width: "100%", padding: "8px", fontSize: "16px" }}
       >
         <option value="">-- Choose Volunteer --</option>
         {volunteers.map((volunteer) => (
-          <option key={volunteer.id} value={volunteer.id}>
+          <option key={volunteer._id} value={volunteer._id}>
             {volunteer.name} (Skills: {volunteer.skills.join(", ")})
           </option>
         ))}
@@ -128,46 +115,66 @@ const VolunteerMatchingForm: React.FC = () => {
 
       {/* Select Event Dropdown */}
       <label>Select an Event:</label>
-      <select 
+      <select
         value={selectedEvent ?? ""}
-        onChange={(e) => setSelectedEvent(Number(e.target.value))}
+        onChange={(e) => setSelectedEvent(e.target.value)}
         style={{ width: "100%", padding: "8px", fontSize: "16px" }}
       >
         <option value="">-- Choose Event --</option>
         {events.map((event) => (
-          <option key={event.id} value={event.id}>
-            {event.title} (Skills: {event.skills_required})
+          <option key={event._id} value={event._id}>
+            {event.title} (Assigned: {event.assigned_volunteers.length})
           </option>
         ))}
       </select>
 
-      {/* Match Button */}
-      <button onClick={handleMatch} style={{ padding: "10px", fontSize: "16px", cursor: "pointer" }}>
+      {/* Buttons for Matching and Assigning */}
+      <button onClick={handleCheckMatch} style={{ padding: "10px", fontSize: "16px", cursor: "pointer" }}>
         Check Match
       </button>
 
+      <button onClick={handleAssignVolunteer} style={{ padding: "10px", fontSize: "16px", cursor: "pointer", backgroundColor: "green", color: "white" }}>
+        Assign Volunteer
+      </button>
+
       {/* Display Match Result */}
-      {matched && (
+      {matchMessage && (
         <div style={{ padding: "10px", border: "1px solid black", borderRadius: "5px", backgroundColor: "#f9f9f9" }}>
           <h3>Match Result:</h3>
-          <p>{matched}</p>
+          <p>{matchMessage}</p>
         </div>
       )}
 
+      {/* Display Assign Result */}
+      {assignMessage && (
+        <div style={{ padding: "10px", border: "1px solid black", borderRadius: "5px", backgroundColor: "#e8f5e9" }}>
+          <h3>Assignment Status:</h3>
+          <p>{assignMessage}</p>
+        </div>
+      )}
 
-
-      {/* <h2>Test WebSocket Notifications</h2>
-      <button onclick="sendTestNotification()">Send Notification</button>
-      <ul id="notificationList"></ul>
-
-      <script type="module">
-          import { initWebSocket, sendTestNotification } from "./notificationsTester.js";
-
-          // Initialize WebSocket on page load
-          initWebSocket();
-      </script> */}
-
-
+      <h2>Events and Assigned Volunteers</h2>
+      <ul>
+        {events.map((event) => (
+          <li key={event._id} style={{ marginBottom: "15px", padding: "10px", border: "1px solid gray", borderRadius: "5px" }}>
+            <strong>{event.title}</strong> - {event.location}
+            <br />
+            <span>Skills Required: {event.skills_required.join(", ")}</span>
+            <br />
+            <strong>Assigned Volunteers:</strong>
+            <ul>
+              {event.assigned_volunteers.length > 0 ? (
+                event.assigned_volunteers.map((volunteerId) => {
+                  const matchedVolunteer = volunteers.find(v => v._id === volunteerId);
+                  return matchedVolunteer ? <li key={volunteerId}>{matchedVolunteer.name}</li> : null;
+                })
+              ) : (
+                <li>No volunteers assigned</li>
+              )}
+            </ul>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

@@ -3,23 +3,22 @@ import axios from "axios";
 
 const EventManagementForm: React.FC = () => {
   type EventType = {
-    id: number;
+    _id: string; // MongoDB uses _id, not id
     title: string;
     details: string;
     location: string;
-    skills_required: string[];  
+    skills_required: string[];
     urgency: string;
     date: string;
   };
 
   const [events, setEvents] = useState<EventType[]>([]);
-
   const [eventData, setEventData] = useState<EventType>({
-    id: 0, // This won't be sent to the backend, just for typing consistency
+    _id: "", // This is ignored when sending data to the backend
     title: "",
     details: "",
     location: "",
-    skills_required: [],  
+    skills_required: [],
     urgency: "",
     date: "",
   });
@@ -29,23 +28,25 @@ const EventManagementForm: React.FC = () => {
   // Fetch existing events on component mount
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/events")
-      .then((response) => setEvents(response.data))
+      .get("http://localhost:5001/api/events")
+      .then((response) => {
+        console.log("Fetched events:", response.data); // Debugging
+        setEvents(response.data);
+      })
       .catch((error) => console.error("Error fetching events:", error));
   }, []);
 
   // Handle input changes
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
 
     setEventData((prevData) => ({
       ...prevData,
-      [name]: name === "skills_required" ? value.split(",").map(skill => skill.trim()) : value
+      [name]: name === "skills_required" ? value.split(",").map((skill) => skill.trim()) : value,
     }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(""); // Clear previous errors
@@ -55,7 +56,7 @@ const EventManagementForm: React.FC = () => {
       !eventData.title.trim() ||
       !eventData.details.trim() ||
       !eventData.location.trim() ||
-      eventData.skills_required.length === 0 ||  
+      eventData.skills_required.length === 0 ||
       !eventData.urgency ||
       !eventData.date
     ) {
@@ -64,10 +65,11 @@ const EventManagementForm: React.FC = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/events", eventData);
+      const response = await axios.post("http://localhost:5001/api/events", eventData);
+      console.log("Created event:", response.data); // Debugging
       setEvents([...events, response.data.event]);
       setEventData({
-        id: 0,
+        _id: "", // Reset after submission
         title: "",
         details: "",
         location: "",
@@ -76,6 +78,7 @@ const EventManagementForm: React.FC = () => {
         date: "",
       });
     } catch (error: any) {
+      console.error("Error creating event:", error);
       if (error.response && error.response.data.errors) {
         setError(Object.values(error.response.data.errors).join(", "));
       }
@@ -83,10 +86,11 @@ const EventManagementForm: React.FC = () => {
   };
 
   // Handle event deletion
-  const handleDelete = async (eventId: number) => {
+  const handleDelete = async (eventId: string) => {
     try {
-      await axios.delete(`http://localhost:5000/api/events/${eventId}`);
-      setEvents(events.filter((event) => event.id !== eventId));
+      console.log("Deleting event with ID:", eventId); // Debugging
+      await axios.delete(`http://localhost:5001/api/events/${eventId}`);
+      setEvents(events.filter((event) => event._id !== eventId));
     } catch (error) {
       console.error("Error deleting event:", error);
     }
@@ -103,12 +107,12 @@ const EventManagementForm: React.FC = () => {
         <textarea name="details" placeholder="Event Details" value={eventData.details} onChange={handleChange} required />
         <input type="text" name="location" placeholder="Location" value={eventData.location} onChange={handleChange} required />
 
-        {/* Skills Input (Properly handles array) */}
+        {/* Skills Input */}
         <input
           type="text"
           name="skills_required"
           placeholder="Required Skills (comma-separated)"
-          value={eventData.skills_required.join(", ")} 
+          value={eventData.skills_required.join(", ")}
           onChange={handleChange}
           required
         />
@@ -127,10 +131,10 @@ const EventManagementForm: React.FC = () => {
       <h3>Existing Events</h3>
       <ul>
         {events.map((event) => (
-          <li key={event.id}>
+          <li key={event._id}>
             <strong>{event.title}</strong> - {event.location} ({event.urgency})
             <br />
-            <button onClick={() => handleDelete(event.id)}>Delete</button>
+            <button onClick={() => handleDelete(event._id)}>Delete</button>
           </li>
         ))}
       </ul>
