@@ -258,3 +258,74 @@ We used axios, react, cors, http, request
 | Ruk | Unit testing, notification messages | Created unit test cases, dynamically update notification messages from state. |
 | Iuri | Unit testing, volunteering history | Created unit test cases, dynamically update volunteering history from state |
 | Nathen | Unit testing, Event Management, Volunteering management | Created unit test cases, dynamically update event management and volunteering management from state. |
+
+# Assignment 4
+
+##  GitHub Repository Link
+https://github.com/davidguzman23/cosc-4353-project
+
+## SQL Statements (RDBMS) or Document Structure (NoSQL) (3 points)
+const UserSchema = new mongoose.Schema({
+    email: { type: String, required: true, unique: true },
+    role: { type: String, enum: ["MANAGER", "VOLUNTEER"], required: true },
+    password: { type: String, required: true },
+}, { timestamps: true });
+
+// Profile Schema
+const ProfileSchema = new mongoose.Schema({
+    email: { type: String, required: true, ref: "User", unique: true },
+    full_name: { type: String, maxlength: 50, required: true },
+    address_1: { type: String, maxlength: 100, required: true },
+    address_2: { type: String, maxlength: 100 },
+    city: { type: String, maxlength: 100, required: true },
+    state: { type: String, length: 2, required: true },
+    zip: { type: String, match: /^[0-9]{5,9}$/, required: true },
+    skills: { type: String, required: true },
+    preferences: { type: String },
+    availability: { type: [Date], required: true },
+}, { timestamps: true });
+
+// Event Schema
+const EventSchema = new mongoose.Schema({
+    name: { type: String, maxlength: 100, required: true },
+    description: { type: String, required: true },
+    location: { type: String, required: true },
+    skills: { type: [String], required: true },
+    urgency: { type: String, enum: ["LOW", "MEDIUM", "HIGH"], required: true },
+    date: { type: Date, required: true },
+}, { timestamps: true });
+
+// Notification Schema
+const NotificationSchema = new mongoose.Schema({
+    email: { type: String, required: true, ref: "User" },
+    message: { type: String, required: true },
+    date: { type: Date, default: Date.now, required: true },
+    type: { type: String, enum: ["SUCCESS", "WARNING", "ERROR"], required: true },
+}, { timestamps: true });
+
+// Volunteer Schema (Many-to-Many between User and Event)
+const VolunteerSchema = new mongoose.Schema({
+    email: { type: String, required: true, ref: "User" },
+    event_id: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Event" },
+}, { timestamps: true });
+
+## Code Coverage Report (2 points)
+42.04% Statements 37/8825% Branches 2/811.11% Functions 1/942.04% Lines 37/88
+Press n or j to go to the next uncovered block, b, p or k for the previous block.
+
+Filter: 
+File		Statements		Branches		Functions		Lines	
+db.js	
+62.5%	5/8	100%	0/0	100%	1/1	62.5%	5/8
+models.js	
+100%	12/12	100%	0/0	100%	0/0	100%	12/12
+server.js	
+29.41%	20/68	25%	2/8	0%	0/8	29.41%	20/68
+
+## Team Contributions (3 points)
+| Group Member Name    | What is your contribution? | Discussion Notes |
+| -------- | ------- | ------- |
+| David | |  |
+| Ruk | MongoDB, seed database, database structure, login and sign up restructuring, routing | Init mongo DB, seed information into database, create base database table structure, make login and sign up feature work with database to verify login credentials, page routing working |
+| Iuri | MongoDB, seed database, database structure, login and sign up restructuring, routing | Init mongo DB, seed information into database, create base database table structure, make login and sign up feature work with database to verify login credentials, page routing working |
+| Nathen | Init db | Base DB |
