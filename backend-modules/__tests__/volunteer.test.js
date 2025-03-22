@@ -4,7 +4,7 @@ const app = require("../server");
 describe("Volunteer Matching API", () => {
   it("should register a volunteer successfully", async () => {
     const res = await request(app)
-      .post("/api/volunteers")
+      .post("/volunteers")
       .send({
         name: "Alice Johnson",
         skills: ["Teamwork", "Trash Collection"],
@@ -18,7 +18,7 @@ describe("Volunteer Matching API", () => {
   });
 
   it("should fail when required volunteer fields are missing", async () => {
-    const res = await request(app).post("/api/volunteers").send({});
+    const res = await request(app).post("/volunteers").send({});
     
     expect(res.statusCode).toEqual(400);
     expect(res.body).toHaveProperty("errors");
@@ -31,13 +31,13 @@ describe("Volunteer Matching API", () => {
   });
 
   it("should return a list of volunteers", async () => {
-    const res = await request(app).get("/api/volunteers");
+    const res = await request(app).get("/volunteers");
     expect(res.statusCode).toEqual(200);
     expect(Array.isArray(res.body)).toBe(true);
   });
 
   it("should match volunteers to events based on skills and location", async () => {
-    const res = await request(app).get("/api/match-volunteers");
+    const res = await request(app).get("/match-volunteers");
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("matches");
     expect(Array.isArray(res.body.matches)).toBe(true);
@@ -45,18 +45,18 @@ describe("Volunteer Matching API", () => {
 
   it("should return 404 if no volunteers match", async () => {
     //Ensure volunteers and events are cleared before testing
-    await request(app).delete("/api/clear-volunteers");
-    await request(app).delete("/api/clear-events");
+    await request(app).delete("/clear-volunteers");
+    await request(app).delete("/clear-events");
 
     //Step 2: Fetch volunteers & events to confirm they are empty
-    const volunteersCheck = await request(app).get("/api/volunteers");
-    const eventsCheck = await request(app).get("/api/events");
+    const volunteersCheck = await request(app).get("/volunteers");
+    const eventsCheck = await request(app).get("/events");
 
     console.log("Volunteers After Clear:", volunteersCheck.body);  // Should be []
     console.log("Events After Clear:", eventsCheck.body);  // Should be []
 
     //Step 3: Now, check for volunteer matches
-    const res = await request(app).get("/api/match-volunteers");
+    const res = await request(app).get("/match-volunteers");
 
     console.log("Match Volunteers Response:", res.body); // Should be { message: "No matching volunteers found" }
 
@@ -64,14 +64,14 @@ describe("Volunteer Matching API", () => {
     expect(res.body).toMatchObject({ message: "No matching volunteers found" });
 
     // Step 4: Restore original data after test
-    await request(app).post("/api/volunteers").send({
+    await request(app).post("/volunteers").send({
         name: "John Doe",
         skills: ["Cooking", "Organization"],
         location: "Community Center",
         availability: ["Weekends"]
     });
 
-    await request(app).post("/api/events").send({
+    await request(app).post("/events").send({
         title: "Food Drive",
         location: "Community Center",
         skills_required: ["Cooking", "Organization"],

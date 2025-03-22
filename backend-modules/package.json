@@ -12,8 +12,14 @@
   "license": "ISC",
   "dependencies": {
     "@mui/icons-material": "^6.4.7",
+    "@testing-library/react": "^16.2.0",
+    "axios": "^1.8.4",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.12.2",
+    "react-hot-toast": "^2.5.2",
     "ws": "^8.18.1"
   },
   "devDependencies": {
