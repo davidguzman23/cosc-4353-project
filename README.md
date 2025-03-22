@@ -325,7 +325,7 @@ server.js
 ## Team Contributions (3 points)
 | Group Member Name    | What is your contribution? | Discussion Notes |
 | -------- | ------- | ------- |
-| David | |  |
+| David | Volunteer matching page | VOlunteer matching page |
 | Ruk | MongoDB, seed database, database structure, login and sign up restructuring, routing | Init mongo DB, seed information into database, create base database table structure, make login and sign up feature work with database to verify login credentials, page routing working |
 | Iuri | MongoDB, seed database, database structure, login and sign up restructuring, routing | Init mongo DB, seed information into database, create base database table structure, make login and sign up feature work with database to verify login credentials, page routing working |
 | Nathen | Init db | Base DB |
