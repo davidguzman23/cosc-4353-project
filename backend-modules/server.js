@@ -1,13 +1,12 @@
-require("dotenv").config();
-const express = require("express");
-const http = require("http");
 const cors = require("cors");
-const mongoose = require("mongoose");
+const express = require("express");
+const connectDB = require("./db");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const { User, Profile, Event, Notification, Volunteer } = require("./models");
 
 const app = express();
-const server = http.createServer(app);
 
-//CORS Configuration
 const corsOptions = {
   origin: "http://localhost:5173", 
   methods: "GET,POST,PUT,DELETE",
@@ -15,95 +14,135 @@ const corsOptions = {
   credentials: true
 };
 app.use(cors(corsOptions));
+app.use(express.json()); // Middleware to parse JSON
 
-// Middleware
-app.use(express.json());
+// Connect to MongoDB
+connectDB();
 
-const PORT = process.env.PORT || 5001;
-const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/cosc_4353_project";
+// Routes
 
-// Connect to Mongo
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Connected to MongoDB"))
-  .catch(err => {
-    console.error("MongoDB connection error:", err);
-    process.exit(1);
+// Get all users
+app.get("/users", async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+// Get all profiles
+app.get("/profiles", async (req, res) => {
+    try {
+        const profiles = await Profile.find();
+        res.json(profiles);
+    } catch (error) {
+        console.error("Error fetching profiles:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+// Get all events
+app.get("/events", async (req, res) => {
+    try {
+        const events = await Event.find();
+        res.json(events);
+    } catch (error) {
+        console.error("Error fetching events:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+// Get all notifications
+app.get("/notifications", async (req, res) => {
+    try {
+        const notifications = await Notification.find();
+        res.json(notifications);
+    } catch (error) {
+        console.error("Error fetching notifications:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+// Get all volunteers
+app.get("/volunteers", async (req, res) => {
+    try {
+        const volunteers = await Volunteer.find();
+        res.json(volunteers);
+    } catch (error) {
+        console.error("Error fetching volunteers:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
+
+
+
+
+app.post("/signup", async (req, res) => {
+  const { email, password, role } = req.body;
+
+  // Check if the user already exists
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
+  }
+
+  // Hash password before saving it
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  // Create a new user
+  const newUser = new User({
+      email,
+      password: hashedPassword,
+      role
   });
 
-// Define  Schemas & Models
-const EventSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  location: { type: String, required: true },
-  skills_required: { type: [String], required: true },
-  urgency: { type: String, enum: ["Low", "Medium", "High"], required: true },
-  details: { type: String, required: true },
-  date: { type: Date, required: true },
-  assigned_volunteers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Volunteer" }]
-});
-const Event = mongoose.model("Event", EventSchema);
-
-const VolunteerSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  skills: { type: [String], required: true },
-  location: { type: String, required: true },
-  availability: { type: [String], required: true }
-});
-const Volunteer = mongoose.model("Volunteer", VolunteerSchema);
-
-const NotificationSchema = new mongoose.Schema({
-  message: { type: String, required: true },
-  time: { type: String, required: true },
-  type: { type: String, required: true }
-});
-const Notification = mongoose.model("Notification", NotificationSchema);
-
-// Get  Events
-app.get("/api/events", async (req, res) => {
   try {
-    const events = await Event.find();
-    res.json(events);
-  } catch (err) {
-    res.status(500).json({ message: "Error fetching events", error: err.message });
+      await newUser.save();
+      res.status(201).json({ message: "User created successfully" });
+  } catch (error) {
+      res.status(500).json({ message: "Error creating user", error });
   }
 });
 
-// Create Event
-app.post("/api/events", async (req, res) => {
-  try {
-    const newEvent = new Event(req.body);
-    await newEvent.save();
-    res.status(201).json({ message: "Event created successfully!", event: newEvent });
-  } catch (err) {
-    res.status(400).json({ message: "Error creating event", error: err.message });
-  }
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+        
+        if (!user) {
+            return res.status(400).json({ error: 'User not found' });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        
+        if (!isMatch) {
+            return res.status(400).json({ error: 'Invalid credentials' });
+        }
+
+        const token = jwt.sign({ userId: user._id, role: user.role }, 'your_jwt_secret', { expiresIn: '1h' });
+
+        res.json({
+            email: user.email,
+            role: user.role,
+            token: token
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
-// Get All Volunteers
-app.get("/api/volunteers", async (req, res) => {
-  try {
-    const volunteers = await Volunteer.find();
-    res.json(volunteers);
-  } catch (err) {
-    res.status(500).json({ message: "Error fetching volunteers", error: err.message });
-  }
+
+
+
+
+// Start the server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
-
-// Register a Volunteer
-app.post("/api/volunteers", async (req, res) => {
-  try {
-    const newVolunteer = new Volunteer(req.body);
-    await newVolunteer.save();
-    res.status(201).json({ message: "Volunteer registered successfully!", volunteer: newVolunteer });
-  } catch (err) {
-    res.status(400).json({ message: "Error registering volunteer", error: err.message });
-  }
-});
-
-// Start Server 
-if (process.env.NODE_ENV !== "test") {
-  server.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-  });
-}
-
-module.exports = app;

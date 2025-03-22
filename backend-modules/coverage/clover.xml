@@ -1,101 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741415941529" clover="3.2.0">
-  <project timestamp="1741415941530" name="All files">
-    <metrics statements="92" coveredstatements="83" conditionals="59" coveredconditionals="58" methods="20" coveredmethods="16" elements="171" coveredelements="157" complexity="0" loc="92" ncloc="92" packages="1" files="1" classes="1"/>
-    <file name="server.js" path="C:\Users\rrerusu\Documents\classes\7 Spring 2024\COSC 4353\Assignment 1\backend-modules\server.js">
-      <metrics statements="92" coveredstatements="83" conditionals="59" coveredconditionals="58" methods="20" coveredmethods="16"/>
-      <line num="1" count="3" type="stmt"/>
-      <line num="2" count="3" type="stmt"/>
-      <line num="3" count="3" type="stmt"/>
-      <line num="5" count="3" type="stmt"/>
-      <line num="6" count="3" type="stmt"/>
-      <line num="8" count="3" type="stmt"/>
-      <line num="9" count="3" type="stmt"/>
-      <line num="11" count="3" type="cond" truecount="2" falsecount="0"/>
-      <line num="14" count="3" type="stmt"/>
-      <line num="36" count="3" type="stmt"/>
-      <line num="53" count="3" type="stmt"/>
-      <line num="191" count="3" type="stmt"/>
-      <line num="213" count="3" type="stmt"/>
-      <line num="214" count="4" type="stmt"/>
-      <line num="215" count="4" type="cond" truecount="4" falsecount="0"/>
-      <line num="216" count="4" type="cond" truecount="4" falsecount="0"/>
-      <line num="217" count="4" type="cond" truecount="5" falsecount="0"/>
-      <line num="218" count="1" type="stmt"/>
-      <line num="220" count="4" type="cond" truecount="4" falsecount="0"/>
-      <line num="221" count="4" type="cond" truecount="4" falsecount="0"/>
-      <line num="222" count="4" type="cond" truecount="4" falsecount="0"/>
-      <line num="223" count="1" type="stmt"/>
-      <line num="224" count="4" type="stmt"/>
-      <line num="227" count="3" type="stmt"/>
-      <line num="228" count="3" type="stmt"/>
-      <line num="229" count="3" type="cond" truecount="4" falsecount="0"/>
-      <line num="230" count="3" type="cond" truecount="5" falsecount="0"/>
-      <line num="231" count="1" type="stmt"/>
-      <line num="232" count="3" type="cond" truecount="4" falsecount="0"/>
-      <line num="233" count="3" type="cond" truecount="5" falsecount="0"/>
-      <line num="234" count="1" type="stmt"/>
-      <line num="235" count="3" type="stmt"/>
-      <line num="239" count="3" type="stmt"/>
-      <line num="240" count="2" type="stmt"/>
-      <line num="244" count="3" type="stmt"/>
-      <line num="245" count="4" type="stmt"/>
-      <line num="246" count="4" type="cond" truecount="2" falsecount="0"/>
-      <line num="247" count="1" type="stmt"/>
-      <line num="250" count="3" type="stmt"/>
-      <line num="255" count="3" type="stmt"/>
-      <line num="256" count="3" type="stmt"/>
-      <line num="260" count="3" type="stmt"/>
-      <line num="261" count="2" type="stmt"/>
-      <line num="262" count="7" type="stmt"/>
-      <line num="264" count="2" type="cond" truecount="2" falsecount="0"/>
-      <line num="265" count="1" type="stmt"/>
-      <line num="268" count="4" type="stmt"/>
-      <line num="269" count="1" type="stmt"/>
-      <line num="277" count="3" type="stmt"/>
-      <line num="278" count="0" type="stmt"/>
-      <line num="281" count="3" type="stmt"/>
-      <line num="282" count="0" type="stmt"/>
-      <line num="287" count="0" type="stmt"/>
-      <line num="288" count="0" type="stmt"/>
-      <line num="297" count="3" type="stmt"/>
-      <line num="298" count="2" type="stmt"/>
-      <line num="301" count="3" type="stmt"/>
-      <line num="302" count="1" type="stmt"/>
-      <line num="306" count="3" type="stmt"/>
-      <line num="307" count="3" type="stmt"/>
-      <line num="308" count="3" type="cond" truecount="2" falsecount="0"/>
-      <line num="309" count="1" type="stmt"/>
-      <line num="312" count="2" type="stmt"/>
-      <line num="317" count="2" type="stmt"/>
-      <line num="318" count="2" type="stmt"/>
-      <line num="322" count="3" type="stmt"/>
-      <line num="323" count="2" type="stmt"/>
-      <line num="325" count="2" type="stmt"/>
-      <line num="326" count="3" type="stmt"/>
-      <line num="327" count="9" type="stmt"/>
-      <line num="328" count="6" type="stmt"/>
-      <line num="330" count="6" type="cond" truecount="4" falsecount="0"/>
-      <line num="331" count="3" type="stmt"/>
-      <line num="336" count="2" type="cond" truecount="2" falsecount="0"/>
-      <line num="337" count="1" type="stmt"/>
-      <line num="340" count="1" type="stmt"/>
-      <line num="344" count="3" type="stmt"/>
-      <line num="345" count="1" type="stmt"/>
-      <line num="346" count="1" type="stmt"/>
-      <line num="347" count="1" type="stmt"/>
-      <line num="351" count="3" type="stmt"/>
-      <line num="352" count="0" type="stmt"/>
-      <line num="353" count="0" type="stmt"/>
-      <line num="354" count="0" type="stmt"/>
-      <line num="358" count="3" type="stmt"/>
-      <line num="359" count="1" type="stmt"/>
-      <line num="360" count="1" type="stmt"/>
-      <line num="361" count="1" type="stmt"/>
-      <line num="365" count="3" type="cond" truecount="1" falsecount="1"/>
-      <line num="366" count="0" type="stmt"/>
-      <line num="367" count="0" type="stmt"/>
-      <line num="372" count="3" type="stmt"/>
+<coverage generated="1742617172189" clover="3.2.0">
+  <project timestamp="1742617172189" name="All files">
+    <metrics statements="88" coveredstatements="37" conditionals="8" coveredconditionals="2" methods="9" coveredmethods="1" elements="105" coveredelements="40" complexity="0" loc="88" ncloc="88" packages="1" files="3" classes="3"/>
+    <file name="db.js" path="C:\Users\rrerusu\Documents\classes\7 Spring 2024\COSC 4353\Assignment\backend-modules\db.js">
+      <metrics statements="8" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="5" count="1" type="stmt"/>
+      <line num="9" count="0" type="stmt"/>
+      <line num="11" count="0" type="stmt"/>
+      <line num="12" count="0" type="stmt"/>
+      <line num="16" count="1" type="stmt"/>
+    </file>
+    <file name="models.js" path="C:\Users\rrerusu\Documents\classes\7 Spring 2024\COSC 4353\Assignment\backend-modules\models.js">
+      <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="11" count="1" type="stmt"/>
+      <line num="25" count="1" type="stmt"/>
+      <line num="35" count="1" type="stmt"/>
+      <line num="43" count="1" type="stmt"/>
+      <line num="49" count="1" type="stmt"/>
+      <line num="50" count="1" type="stmt"/>
+      <line num="51" count="1" type="stmt"/>
+      <line num="52" count="1" type="stmt"/>
+      <line num="53" count="1" type="stmt"/>
+      <line num="55" count="1" type="stmt"/>
+    </file>
+    <file name="server.js" path="C:\Users\rrerusu\Documents\classes\7 Spring 2024\COSC 4353\Assignment\backend-modules\server.js">
+      <metrics statements="68" coveredstatements="20" conditionals="8" coveredconditionals="2" methods="8" coveredmethods="0"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="5" count="1" type="stmt"/>
+      <line num="6" count="1" type="stmt"/>
+      <line num="8" count="1" type="stmt"/>
+      <line num="10" count="1" type="stmt"/>
+      <line num="16" count="1" type="stmt"/>
+      <line num="17" count="1" type="stmt"/>
+      <line num="20" count="1" type="stmt"/>
+      <line num="25" count="1" type="stmt"/>
+      <line num="26" count="0" type="stmt"/>
+      <line num="27" count="0" type="stmt"/>
+      <line num="28" count="0" type="stmt"/>
+      <line num="30" count="0" type="stmt"/>
+      <line num="31" count="0" type="stmt"/>
+      <line num="36" count="1" type="stmt"/>
+      <line num="37" count="0" type="stmt"/>
+      <line num="38" count="0" type="stmt"/>
+      <line num="39" count="0" type="stmt"/>
+      <line num="41" count="0" type="stmt"/>
+      <line num="42" count="0" type="stmt"/>
+      <line num="47" count="1" type="stmt"/>
+      <line num="48" count="0" type="stmt"/>
+      <line num="49" count="0" type="stmt"/>
+      <line num="50" count="0" type="stmt"/>
+      <line num="52" count="0" type="stmt"/>
+      <line num="53" count="0" type="stmt"/>
+      <line num="58" count="1" type="stmt"/>
+      <line num="59" count="0" type="stmt"/>
+      <line num="60" count="0" type="stmt"/>
+      <line num="61" count="0" type="stmt"/>
+      <line num="63" count="0" type="stmt"/>
+      <line num="64" count="0" type="stmt"/>
+      <line num="69" count="1" type="stmt"/>
+      <line num="70" count="0" type="stmt"/>
+      <line num="71" count="0" type="stmt"/>
+      <line num="72" count="0" type="stmt"/>
+      <line num="74" count="0" type="stmt"/>
+      <line num="75" count="0" type="stmt"/>
+      <line num="84" count="1" type="stmt"/>
+      <line num="85" count="0" type="stmt"/>
+      <line num="88" count="0" type="stmt"/>
+      <line num="89" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="90" count="0" type="stmt"/>
+      <line num="94" count="0" type="stmt"/>
+      <line num="97" count="0" type="stmt"/>
+      <line num="103" count="0" type="stmt"/>
+      <line num="104" count="0" type="stmt"/>
+      <line num="105" count="0" type="stmt"/>
+      <line num="107" count="0" type="stmt"/>
+      <line num="111" count="1" type="stmt"/>
+      <line num="112" count="0" type="stmt"/>
+      <line num="114" count="0" type="stmt"/>
+      <line num="115" count="0" type="stmt"/>
+      <line num="117" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="118" count="0" type="stmt"/>
+      <line num="121" count="0" type="stmt"/>
+      <line num="123" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="124" count="0" type="stmt"/>
+      <line num="127" count="0" type="stmt"/>
+      <line num="129" count="0" type="stmt"/>
+      <line num="135" count="0" type="stmt"/>
+      <line num="136" count="0" type="stmt"/>
+      <line num="145" count="1" type="cond" truecount="2" falsecount="0"/>
+      <line num="146" count="1" type="stmt"/>
+      <line num="147" count="0" type="stmt"/>
     </file>
   </project>
 </coverage>

@@ -4,7 +4,7 @@ const app = require("../server");
 describe("Event Management API", () => {
     it("should create an event successfully", async () => {
         const res = await request(app)
-            .post("/api/events")
+            .post("/events")
             .send({
                 title: "Test Event",
                 location: "Community Park",
@@ -22,7 +22,7 @@ describe("Event Management API", () => {
     });
     
     it("should fail when required fields are missing", async () => {
-        const res = await request(app).post("/api/events").send({});
+        const res = await request(app).post("/events").send({});
     
         console.log("Response Body:", res.body);  
     
@@ -40,13 +40,13 @@ describe("Event Management API", () => {
     
 
     it("should return all events", async () => {
-        const res = await request(app).get("/api/events");
+        const res = await request(app).get("/events");
         expect(res.statusCode).toEqual(200);
         expect(Array.isArray(res.body)).toBe(true);
     });
 
     it("should delete an event successfully", async () => {
-        const createRes = await request(app).post("/api/events").send({
+        const createRes = await request(app).post("/events").send({
             title: "Delete Me",
             location: "Test Location",
             skills_required: ["Testing"],
@@ -62,7 +62,7 @@ describe("Event Management API", () => {
         expect(createRes.body.event).toHaveProperty("id");
     
         const eventId = createRes.body.event.id;
-        const deleteRes = await request(app).delete(`/api/events/${eventId}`);
+        const deleteRes = await request(app).delete(`/events/${eventId}`);
     
         expect(deleteRes.statusCode).toEqual(200);
         expect(deleteRes.body).toHaveProperty("message", "Event deleted successfully");
@@ -70,7 +70,7 @@ describe("Event Management API", () => {
     
 
     it("should return 404 when trying to delete a non-existent event", async () => {
-        const res = await request(app).delete("/api/events/999");
+        const res = await request(app).delete("/events/999");
     
         console.log("Delete Non-Existent Event Response:", res.body); // Debugh
     
