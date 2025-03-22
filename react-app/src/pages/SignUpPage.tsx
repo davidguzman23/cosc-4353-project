@@ -72,7 +72,7 @@ const SignUpPage = () => {
                 control = {<Checkbox value="remember" color="primary"/>}
                 label = "Remember me"
               />
-              <Button type="submit" variant="contained" fullWidth sx={{mt:1}}>Sign In </Button>
+              <Button type="submit" variant="contained" fullWidth sx={{mt:1}}>Sign Up </Button>
 
             </Box>
 

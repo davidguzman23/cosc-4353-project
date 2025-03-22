@@ -17,10 +17,6 @@ import axios from 'axios'
 import {toast} from 'react-hot-toast'
 import {useNavigate} from 'react-router-dom'
 
-/*export default function LoginPage(){
-
-}*/
-
 const LoginPage = () => {
   const Navigate = useNavigate();
   const [data, setData] = useState({

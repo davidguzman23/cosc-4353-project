@@ -1,0 +1,36 @@
+table user:
+email - string - required
+role - string only MANAGER|VOLUNTEER - required
+password - string - required
+
+table profile:
+email - fk table user - required
+full_name - char[50] - required
+address_1 - char[100] - required
+address_2 - char[100] - optional
+city - char[100] - required
+state - char[2] - required
+zip - char[5-9] - required
+skills - string - required
+preferences - string - optional
+availability - date array - required
+
+table event:
+id - integer - autofil
+name - char[100] - required
+description - string - required
+location - string - required
+skills - string array - required
+urgency - string only LOW|MEDIUM|HIGH - required
+date - date - required
+
+table notifications:
+id - integer - autofil
+email - fk table user - required
+message - string - required
+date - date - required
+type - string only SUCESS|WARNING|ERROR - required 
+
+table volunteer:
+email - fk table user - required
+id - fk table event - required
